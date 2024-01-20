@@ -35,7 +35,7 @@
   .body {
     margin-right: 0.5rem;
 
-    a:hover {
+  a:hover {
       text-decoration: underline;
     }
 
@@ -92,4 +92,25 @@
   :global(.verticalMode) & {
     @include wrap-buttons;
   }
+}
+
+.carousel {
+  display: flex;
+  max-width: 100%;
+  overflow: hidden;
+}
+.carousel__btn {
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 1.5rem;
+  border: none;
+  padding: 1rem;
+  cursor: pointer;
+  z-index: 1;
+  transition: background-color 0.3s;
+}
+.carousel__btn:hover {
+  background-color: rgba(0, 0, 0, 0.8);
 }

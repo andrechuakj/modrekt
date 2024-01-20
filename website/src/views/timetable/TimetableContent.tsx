@@ -53,8 +53,6 @@ import ExamCalendar from './ExamCalendar';
 import ModulesTableFooter from './ModulesTableFooter';
 import styles from './TimetableContent.scss';
 
-
-import { Swiper, SwiperSlide } from 'swiper/react';
 type ModifiedCell = {
   className: string;
   position: ClientRect;

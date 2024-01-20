@@ -94,9 +94,6 @@ const Navtabs: FC = () => {
         <Heart />
         <span className={styles.title}>Whispers</span>
       </ExternalLink>
-      <button className = {styles.title}>
-          GET REKT
-      </button>
     </nav>
   );
 };
