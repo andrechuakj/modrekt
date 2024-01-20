@@ -236,7 +236,6 @@ class TimetableContent extends React.Component<Props, State> {
     // Separate added modules into sections of clashing modules
     const clashes = findExamClashes(modules, this.props.semester);
     const nonClashingMods: Module[] = _.difference(modules, _.flatten(_.values(clashes)));
-
     if (_.isEmpty(clashes) && _.isEmpty(nonClashingMods) && !tombstone) {
       return (
         <div className="row">
@@ -285,6 +284,7 @@ class TimetableContent extends React.Component<Props, State> {
     } = this.props;
 
     const { showExamCalendar } = this.state;
+    console.log('pray', this.props.timetableWithLessons);
 
     let timetableLessons: Lesson[] = timetableLessonsArray(this.props.timetableWithLessons)
       // Do not process hidden modules

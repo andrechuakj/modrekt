@@ -6,6 +6,10 @@ import storage from 'storage';
 import { announcementKey } from 'storage/keys';
 import CloseButton from 'views/components/CloseButton';
 import styles from './Announcements.scss';
+import RequirementCard from './ConstraintCard';
+import Carousel from './Carousel';
+import ConstraintCard from './ConstraintCard';
+import { Constraint } from 'types/constraint';
 
 /**
  * If false, hides announcement.
@@ -39,15 +43,35 @@ const Announcements = memo(() => {
     return true;
   });
 
-  // const dismiss = useCallback(() => {
-  //   if (key) storage.setItem(key, true);
-  //   setIsOpen(false);
-  // }, []);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  // if (!isOpen) {
-  //   return null;
-  // }
+  const nextSlide = () => {
+    setActiveIndex((prevIndex) => (prevIndex === constraints.length - 1 ? 0 : prevIndex + 1));
+  };
+  const prevSlide = () => {
+    setActiveIndex((prevIndex) => (prevIndex === 0 ? constraints.length - 1 : prevIndex - 1));
+  };
 
+  const constraints: Constraint[] = [
+    {
+      index: 0,
+      title: `Requirement 0`,
+      description: '',
+      satisfied: false,
+      startTime: '1000',
+      endTime: '1200',
+      day: 'Wednesday',
+    },
+    {
+      index: 1,
+      title: `Requirement 1`,
+      description: '',
+      satisfied: false,
+      startTime: '0800',
+      endTime: '1000',
+      day: 'Friday',
+    },
+  ];
   return (
     <div
       className={classnames(
@@ -57,14 +81,17 @@ const Announcements = memo(() => {
       )}
     >
       <Heart className={styles.backgroundIcon} />
-
-      <div className={styles.body}>
-        <h3>Requirement 1</h3>
-        <p className={styles.bodyElement}>Find a mod that starts at 1200 MON, ends at 1400 MON.</p>
-        <p className={styles.bodyElement}>Gud luck!</p>
-      </div>
-
-      {/* <div className={styles.buttons}>{key && <CloseButton onClick={dismiss} />}</div> */}
+      <button className="btn btn-link" onClick={prevSlide}>
+        &lt;
+      </button>
+      <Carousel
+        constraintCards={constraints}
+        activeIndex={activeIndex}
+        setActiveIndex={setActiveIndex}
+      />
+      <button className="btn btn-link" onClick={nextSlide}>
+        &gt;
+      </button>
     </div>
   );
 });

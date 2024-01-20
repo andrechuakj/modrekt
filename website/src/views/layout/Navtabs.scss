@@ -59,9 +59,6 @@
     color: theme-color(primary);
   }
 
-  &:hover .title {
-    text-decoration: underline;
-  }
 
   @include media-breakpoint-down(sm) {
     display: flex;
