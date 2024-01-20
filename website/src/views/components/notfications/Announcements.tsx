@@ -6,6 +6,7 @@ import storage from 'storage';
 import { announcementKey } from 'storage/keys';
 import CloseButton from 'views/components/CloseButton';
 import styles from './Announcements.scss';
+import CarouselItem from './CarouselItem.jsx';
 
 /**
  * If false, hides announcement.
@@ -39,14 +40,20 @@ const Announcements = memo(() => {
     return true;
   });
 
-  // const dismiss = useCallback(() => {
-  //   if (key) storage.setItem(key, true);
-  //   setIsOpen(false);
-  // }, []);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  // if (!isOpen) {
-  //   return null;
-  // }
+  const nextSlide = () => {
+    setActiveIndex((prevIndex) => (prevIndex === requirements.length - 1 ? 0 : prevIndex + 1));
+  };
+  const prevSlide = () => {
+    setActiveIndex((prevIndex) => (prevIndex === 0 ? requirements.length - 1 : prevIndex - 1));
+  };
+
+  const requirements = [
+    { title: 'Requirement 1', text: 'Find a mod between 2 to 3 pm' },
+    { title: 'Requirement 2', text: 'Find a mod of level 3000' },
+    { title: 'Requirement 3', text: 'Find a mod from FASS' },
+  ];
 
   return (
     <div
@@ -57,14 +64,17 @@ const Announcements = memo(() => {
       )}
     >
       <Heart className={styles.backgroundIcon} />
-
-      <div className={styles.body}>
-        <h3>Requirement 1</h3>
-        <p className={styles.bodyElement}>Find a mod that starts at 1200 MON, ends at 1400 MON.</p>
-        <p className={styles.bodyElement}>Gud luck!</p>
-      </div>
-
-      {/* <div className={styles.buttons}>{key && <CloseButton onClick={dismiss} />}</div> */}
+      <button className="btn btn-link" onClick={prevSlide}>
+        &lt;
+      </button>
+      <CarouselItem
+        requirements={requirements}
+        activeIndex={activeIndex}
+        setActiveIndex={setActiveIndex}
+      />
+      <button className="btn btn-link" onClick={nextSlide}>
+        &gt;
+      </button>
     </div>
   );
 });
