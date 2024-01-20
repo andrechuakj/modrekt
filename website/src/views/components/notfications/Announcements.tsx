@@ -6,7 +6,10 @@ import storage from 'storage';
 import { announcementKey } from 'storage/keys';
 import CloseButton from 'views/components/CloseButton';
 import styles from './Announcements.scss';
-import CarouselItem from './CarouselItem.jsx';
+import RequirementCard from './ConstraintCard';
+import Carousel from './Carousel';
+import ConstraintCard from './ConstraintCard';
+import { Constraint } from 'types/constraint';
 
 /**
  * If false, hides announcement.
@@ -43,18 +46,32 @@ const Announcements = memo(() => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const nextSlide = () => {
-    setActiveIndex((prevIndex) => (prevIndex === requirements.length - 1 ? 0 : prevIndex + 1));
+    setActiveIndex((prevIndex) => (prevIndex === constraints.length - 1 ? 0 : prevIndex + 1));
   };
   const prevSlide = () => {
-    setActiveIndex((prevIndex) => (prevIndex === 0 ? requirements.length - 1 : prevIndex - 1));
+    setActiveIndex((prevIndex) => (prevIndex === 0 ? constraints.length - 1 : prevIndex - 1));
   };
 
-  const requirements = [
-    { title: 'Requirement 1', text: 'Find a mod between 2 to 3 pm' },
-    { title: 'Requirement 2', text: 'Find a mod of level 3000' },
-    { title: 'Requirement 3', text: 'Find a mod from FASS' },
+  const constraints: Constraint[] = [
+    {
+      index: 0,
+      title: `Requirement 0`,
+      description: '',
+      satisfied: false,
+      startTime: '1000',
+      endTime: '1200',
+      day: 'Wednesday',
+    },
+    {
+      index: 1,
+      title: `Requirement 1`,
+      description: '',
+      satisfied: false,
+      startTime: '0800',
+      endTime: '1000',
+      day: 'Friday',
+    },
   ];
-
   return (
     <div
       className={classnames(
@@ -67,8 +84,8 @@ const Announcements = memo(() => {
       <button className="btn btn-link" onClick={prevSlide}>
         &lt;
       </button>
-      <CarouselItem
-        requirements={requirements}
+      <Carousel
+        constraintCards={constraints}
         activeIndex={activeIndex}
         setActiveIndex={setActiveIndex}
       />
