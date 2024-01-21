@@ -1,14 +1,11 @@
-import { memo, useState, useCallback } from 'react';
+import { memo, useState } from 'react';
 import classnames from 'classnames';
 import { Heart } from 'react-feather';
 
 import storage from 'storage';
 import { announcementKey } from 'storage/keys';
-import CloseButton from 'views/components/CloseButton';
 import styles from './Announcements.scss';
-import RequirementCard from './ConstraintCard';
 import Carousel from './Carousel';
-import ConstraintCard from './ConstraintCard';
 import { Constraint } from 'types/constraint';
 
 /**
@@ -71,6 +68,24 @@ const Announcements = memo(() => {
       endTime: '1000',
       day: 'Friday',
     },
+    {
+      index: 2,
+      title: `Requirement 2`,
+      description: '',
+      satisfied: false,
+      startTime: '1400',
+      endTime: '1600',
+      day: 'Friday',
+    },
+    {
+      index: 3,
+      title: `Requirement 3`,
+      description: '',
+      satisfied: false,
+      startTime: '1800',
+      endTime: '2000',
+      day: 'Friday',
+    },
   ];
   return (
     <div
@@ -84,11 +99,7 @@ const Announcements = memo(() => {
       <button className="btn btn-link" onClick={prevSlide}>
         &lt;
       </button>
-      <Carousel
-        constraintCards={constraints}
-        activeIndex={activeIndex}
-        setActiveIndex={setActiveIndex}
-      />
+      <Carousel constraintCards={constraints} activeIndex={activeIndex} />
       <button className="btn btn-link" onClick={nextSlide}>
         &gt;
       </button>
